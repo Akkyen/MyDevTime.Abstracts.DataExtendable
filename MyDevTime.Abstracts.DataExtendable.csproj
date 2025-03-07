@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Authors>Benedikt Papiorek</Authors>
+        <Copyright>Benedikt Papiorek</Copyright>
+        <RepositoryType>git</RepositoryType>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MyDevTime.Interfaces.DataExtendable\MyDevTime.Interfaces.DataExtendable.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="LICENSE.txt">
+        <Pack>true</Pack>
+        <PackagePath>LICENSE.txt</PackagePath>
+      </None>
+      <None Update="README.md">
+        <Pack>true</Pack>
+        <PackagePath>README.md</PackagePath>
+      </None>
+    </ItemGroup>
+
+</Project>
