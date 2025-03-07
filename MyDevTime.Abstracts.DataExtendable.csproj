@@ -7,11 +7,10 @@
         <Authors>Benedikt Papiorek</Authors>
         <Copyright>Benedikt Papiorek</Copyright>
         <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/Akkyen/MyDevTime.Abstracts.DataExtendable</RepositoryUrl>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <FileVersion>1.0.0</FileVersion>
     </PropertyGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\MyDevTime.Interfaces.DataExtendable\MyDevTime.Interfaces.DataExtendable.csproj" />
-    </ItemGroup>
 
     <ItemGroup>
       <None Update="LICENSE.txt">
@@ -22,6 +21,10 @@
         <Pack>true</Pack>
         <PackagePath>README.md</PackagePath>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MyDevTime.Interfaces.DataExtendable" Version="1.2.1" />
     </ItemGroup>
 
 </Project>
