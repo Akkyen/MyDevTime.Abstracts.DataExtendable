@@ -14,18 +14,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Update="LICENSE.txt">
-        <Pack>true</Pack>
-        <PackagePath>LICENSE.txt</PackagePath>
-      </None>
-      <None Update="README.md">
-        <Pack>true</Pack>
-        <PackagePath>README.md</PackagePath>
-      </None>
+        <None Update="LICENSE.txt">
+            <Pack>true</Pack>
+            <PackagePath>LICENSE.txt</PackagePath>
+        </None>
+        <None Update="README.md">
+            <Pack>true</Pack>
+            <PackagePath>README.md</PackagePath>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MyDevTime.Interfaces.DataExtendable" Version="1.2.1" />
+        <PackageReference Include="MyDevTime.Interfaces.DataExtendable" Version="1.2.1"/>
     </ItemGroup>
 
 </Project>

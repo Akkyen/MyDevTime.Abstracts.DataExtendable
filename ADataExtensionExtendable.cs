@@ -9,13 +9,12 @@ public abstract class ADataExtensionExtendable<T> : IDataExtension, IDataExtenda
     #region Fields and Properties
 
     public string ExtensionId { get; set; }
-    
+
     public ICollection<T> Extensions { get; set; }
 
     #endregion
-    
-    
-    
+
+
     #region DataExtendableFunctions
 
     /// <summary>
