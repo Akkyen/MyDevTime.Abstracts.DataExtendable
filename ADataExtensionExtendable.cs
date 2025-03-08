@@ -25,7 +25,7 @@ namespace MyDevTime.Abstracts.DataExtendable
         /// </summary>
         /// <param name="dataExtension">The data extension to add.</param>
         /// <returns>True if the extension was able added otherwise false. The default implementation does not allow for duplicate <see cref="ExtensionId"/>s.</returns>
-        public bool AddDataExtension(T dataExtension)
+        public virtual bool AddDataExtension(T dataExtension)
         {
             if (Extensions is ISet<T> set)
             {
@@ -47,7 +47,7 @@ namespace MyDevTime.Abstracts.DataExtendable
         /// </summary>
         /// <param name="dataExtension">The data extension to remove.</param>
         /// <returns>True if it <see cref="dataExtension"/> got removed otherwise false.</returns>
-        public bool RemoveDataExtension(T dataExtension)
+        public virtual bool RemoveDataExtension(T dataExtension)
         {
             if (Extensions is ISet<T> set)
             {
@@ -73,7 +73,7 @@ namespace MyDevTime.Abstracts.DataExtendable
         /// <param name="extensionId">The id of the extension.</param>
         /// <param name="dataExtension">The requested extension or null</param>
         /// <returns>True if an extension was found otherwise false.</returns>
-        public bool GetDataExtension(string extensionId, out T dataExtension)
+        public virtual bool GetDataExtension(string extensionId, out T dataExtension)
         {
             dataExtension = null;
 
