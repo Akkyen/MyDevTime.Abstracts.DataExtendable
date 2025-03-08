@@ -1,70 +1,92 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Linq;
 using MyDevTime.Interfaces.DataExtendable;
 
-namespace MyDevTime.Abstracts.DataExtendable;
-
-public abstract class ADataExtendable<T> : IDataExtendable<T>
-    where T : class, IDataExtension
+namespace MyDevTime.Abstracts.DataExtendable
 {
-    #region Fields and Properties
-
-    public ICollection<T> Extensions { get; set; }
-
-    #endregion
-
-
-    #region DataExtendableFunctions
-
     /// <summary>
-    /// Adds a new data extension to the object.
+    /// This class represents the root in a DataExtendable extension tree.
     /// </summary>
-    /// <param name="dataExtension">The data extension to add.</param>
-    public bool AddDataExtension(T dataExtension)
+    /// <typeparam name="T">The type of the extension. Needs to implement <see cref="IDataExtension"/></typeparam>
+    public abstract class ADataExtendable<T> : IDataExtendable<T>
+        where T : class, IDataExtension
     {
-        if (Extensions is ISet<T> set) return set.Add(dataExtension);
+        #region Fields and Properties
 
-        Extensions.Add(dataExtension);
+        public ICollection<T> Extensions { get; set; }
 
-        return true;
-    }
-
-    /// <summary>
-    /// Removes an existing data extension from the object.
-    /// </summary>
-    /// <param name="dataExtension">The data extension to remove.</param>
-    public bool RemoveDataExtension(T dataExtension)
-    {
-        if (Extensions is ISet<T> set) return set.Remove(dataExtension);
+        #endregion
 
 
-        var count = Extensions.Count;
+        #region DataExtendableFunctions
 
-        Extensions.Remove(dataExtension);
-
-        if (count > Extensions.Count) return true;
-
-        return false;
-    }
-
-    /// <summary>
-    /// Retrieves a data extension by its unique identifier.
-    /// </summary>
-    /// <param name="extensionId">The id of the extension.</param>
-    /// <param name="dataExtension">The requested extension or null</param>
-    /// <returns>True if an extension was found otherwise false.</returns>
-    public bool GetDataExtension(string extensionId, [NotNullWhen(true)] out T? dataExtension)
-    {
-        dataExtension = null;
-
-        if (Extensions.Any(ex => ex.ExtensionId == extensionId))
+        /// <summary>
+        /// Adds a new data extension to the object.
+        /// </summary>
+        /// <param name="dataExtension">The data extension to add.</param>
+        /// <returns>True if the extension was able added otherwise false. The default implementation does not allow for duplicate ExtensionIds.</returns>
+        public bool AddDataExtension(T dataExtension)
         {
-            dataExtension = Extensions.First(ex => ex.ExtensionId == extensionId);
+            if (Extensions is ISet<T> set)
+            {
+                return set.Add(dataExtension);
+            }
 
-            return true;
+            if (Extensions.Any(ex => ex.ExtensionId == dataExtension.ExtensionId))
+            {
+                Extensions.Add(dataExtension);
+
+                return true;
+            }
+            
+            return false;
         }
 
-        return false;
-    }
+        /// <summary>
+        /// Removes an existing data extension from the object.
+        /// </summary>
+        /// <param name="dataExtension">The data extension to remove.</param>
+        /// <returns>True if it <see cref="dataExtension"/> got removed otherwise false.</returns>
+        public bool RemoveDataExtension(T dataExtension)
+        {
+            if (Extensions is ISet<T> set)
+            {
+                return set.Remove(dataExtension);
+            }
 
-    #endregion
+
+            var count = Extensions.Count;
+
+            Extensions.Remove(dataExtension);
+
+            if (count > Extensions.Count)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Retrieves a data extension by its unique identifier.
+        /// </summary>
+        /// <param name="extensionId">The id of the extension.</param>
+        /// <param name="dataExtension">The requested extension or null</param>
+        /// <returns>True if an extension was found otherwise false.</returns>
+        public bool GetDataExtension(string extensionId, out T dataExtension)
+        {
+            dataExtension = null;
+
+            if (Extensions.Any(ex => ex.ExtensionId == extensionId))
+            {
+                dataExtension = Extensions.First(ex => ex.ExtensionId == extensionId);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        #endregion
+    }
 }
