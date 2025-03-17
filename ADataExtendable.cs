@@ -9,11 +9,11 @@ namespace MyDevTime.Abstracts.DataExtendable
     /// </summary>
     /// <typeparam name="T">The type of the extension. Needs to implement <see cref="IDataExtension"/></typeparam>
     public abstract class ADataExtendable<T> : IDataExtendable<T>
-        where T : class, IDataExtension
+        where T : ADataExtension
     {
         #region Fields and Properties
 
-        public ICollection<T> Extensions { get; set; }
+        protected ICollection<T> Extensions { get; set; }
 
         #endregion
 
@@ -32,7 +32,7 @@ namespace MyDevTime.Abstracts.DataExtendable
                 return set.Add(dataExtension);
             }
 
-            if (Extensions.Any(ex => ex.ExtensionId == dataExtension.ExtensionId))
+            if (Extensions.All(ex => ex.ExtensionId != dataExtension.ExtensionId))
             {
                 Extensions.Add(dataExtension);
 
@@ -73,7 +73,7 @@ namespace MyDevTime.Abstracts.DataExtendable
         /// <param name="extensionId">The id of the extension.</param>
         /// <param name="dataExtension">The requested extension or null</param>
         /// <returns>True if an extension was found otherwise false.</returns>
-        public virtual bool GetDataExtension(string extensionId, out T dataExtension)
+        public virtual bool GetDataExtension(string extensionId, out T? dataExtension)
         {
             dataExtension = null;
 
