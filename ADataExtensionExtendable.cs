@@ -13,7 +13,7 @@ namespace MyDevTime.Abstracts.DataExtendable
     {
         #region Fields and Properties
         
-        protected ICollection<T> Extensions { get; set; }
+        public ICollection<T> Extensions { get; set; }
         
         #endregion
 
